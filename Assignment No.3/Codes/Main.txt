@@ -1,0 +1,151 @@
+package com.company;
+import java.util.*;
+
+class Heap {
+    public int array[];
+    public int Capacity;
+    public int HSize;
+
+    public int array1[];
+    public int Capacity1;
+    public int HSize1;
+
+    public Heap(int iNo) {
+        array = new int[iNo];
+        array[0] = 0;
+        Capacity = iNo;
+        HSize = 1;
+
+        array1 = new int[iNo];
+        array1[0] = 0;
+        Capacity1 = iNo;
+        HSize1 = 1;
+    }
+
+    public void insertMaxElements(int iEle) {
+        int i = HSize;
+        int parent = 0;
+        int temp = 0;
+
+        if (HSize == Capacity) {
+            System.out.println("Heap is overflow !");
+            return;
+        } else {
+            if (HSize == 1) {
+                array[HSize] = iEle;
+                i = i + 1;
+                HSize++;
+            } else {
+                array[HSize] = iEle;
+                while (i > 1) {
+                    parent = Math.floorDiv(i, 2);
+                    if (array[i] > array[parent]) {
+                        temp = array[i];
+                        array[i] = array[parent];
+                        array[parent] = temp;
+                        i = parent;
+                    } else {
+                        HSize++;
+                        return;
+                    }
+                }
+                HSize++;
+            }
+        }
+    }
+
+    public void insertMinElements(int iEle) {
+        int i = HSize1;
+        int parent = 0;
+        int temp = 0;
+
+        if (HSize1 == Capacity1) {
+            System.out.println("Heap is overflow !");
+            return;
+        } else {
+            if (HSize1 == 1) {
+                array1[HSize1] = iEle;
+                i = i + 1;
+                HSize1++;
+            } else {
+                array1[HSize1] = iEle;
+                while (i > 1) {
+                    parent = Math.floorDiv(i, 2);
+                    if (array1[i] < array1[parent]) {
+                        temp = array1[i];
+                        array1[i] = array1[parent];
+                        array1[parent] = temp;
+                        i = parent;
+                    } else {
+                        HSize1++;
+                        return;
+                    }
+                }
+                HSize1++;
+            }
+        }
+    }
+
+    public void Display() {
+        System.out.println("The Minimum Marks From The All The Subject Marks Of The Student = "+array1[1]);
+    }
+
+    public void Display1() {
+        System.out.println("The Maximum Marks From The All The Subject Marks Of The Student = "+array[1]);
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int iNo = 0;
+        int iEle;
+        int iValue = 1;
+        int iChoice = 0;
+        char ch;
+        Heap hobj;
+
+            while(iValue != 0)
+            {
+                System.out.println("------------------------------------");
+                System.out.println("1. Find Minimum Marks Using Min Heap");
+                System.out.println("2. Find Maximum Marks Using Max Heap");
+                System.out.println("3. Exit");
+                System.out.println("------------------------------------");
+                System.out.println("Enter the choice: -");
+                iChoice = sc.nextInt();
+
+                switch (iChoice) {
+
+                    case 1:
+                        System.out.println("Enter the total number of subject taken by the student: - ");
+                        iNo = sc.nextInt();
+                        hobj = new Heap(iNo + 1);
+                        for (int i = 0; i < iNo; i++) {
+                            System.out.println("Enter The " + (i + 1) + " Subject Marks");
+                            iEle = sc.nextInt();
+                            hobj.insertMinElements(iEle);
+                        }
+                        hobj.Display();
+                        break;
+                    case 2:
+                        System.out.println("Enter the total number of subject taken by the student: - ");
+                        iNo = sc.nextInt();
+                        hobj = new Heap(iNo + 1);
+                        for (int i = 0; i < iNo; i++) {
+                            System.out.println("Enter The " + (i + 1) + " Subject Marks");
+                            iEle = sc.nextInt();
+                            hobj.insertMaxElements(iEle);
+                        }
+                        hobj.Display1();
+                        break;
+                    case 3:
+                        System.out.println("Thank You For Using Application !");
+                        iValue = 0;
+                        break;
+                    default:
+                        System.out.println("Undefined Choice Has Been Entered !");
+                        break;
+                }
+            }
+    }
+}
